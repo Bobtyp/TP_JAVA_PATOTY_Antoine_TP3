@@ -15,10 +15,13 @@ public class Interface extends Application
     double startDragX;
     double startDragY;
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception
+    {
+        //creation de la sphere
         primaryStage.setTitle("Hello world");
         Earth root = new Earth();
         Pane pane = new Pane(root);
+        //dimensionement de la sphere
         Scene theScene = new Scene(pane, 600, 400,true);
         primaryStage.setScene(theScene);
         primaryStage.show();
@@ -30,6 +33,7 @@ public class Interface extends Application
         camera.setFieldOfView(35);
         theScene.setCamera(camera);
 
+        //creationevent pour savoir ou cliquer
         theScene.addEventHandler(MouseEvent.ANY, event -> {
             if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
                 startDragX = event.getSceneX();
@@ -42,7 +46,8 @@ public class Interface extends Application
                 startDragY = event.getSceneY();
             }
         });
-        theScene.addEventHandler(MouseEvent.ANY, event -> {
+        theScene.addEventHandler(MouseEvent.ANY, event ->
+        {
             if(event.getButton() == MouseButton.SECONDARY && event.getEventType() == MouseEvent.MOUSE_CLICKED) {
                 PickResult pickResult = event.getPickResult();
                 if (pickResult.getIntersectedNode() != null) {

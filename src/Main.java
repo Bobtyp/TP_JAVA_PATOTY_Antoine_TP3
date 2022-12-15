@@ -6,6 +6,7 @@ public class Main {
         /*Aeroport Aeroport1 = new Aeroport("toto","paris","france",34,45);
         System.out.println(Aeroport1);*/
 
+        //test pour savoir si les 2 fonctions sont correct ou non
         World w = new World ("Data/airport-codes_no_comma.csv");
         System.out.println("Found "+w.getList().size()+" airports.");
         Aeroport paris = w.findNearestAirport(2.316,48.866);

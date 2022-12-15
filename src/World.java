@@ -40,6 +40,7 @@ public class World {
         return Math.pow((latitude2 - latitude1), 2.0) + Math.pow((longitude2 - longitude1) * Math.cos((latitude2 - latitude1) / 2.0), 2.0);
     }
 
+    //calcul pour savoir quelle Aeroport est le plus proche
     public Aeroport findNearestAirport(double longitude,double latitude)
     {
         double result = 999999999.9;
@@ -56,7 +57,7 @@ public class World {
         }
         return list.get(index);
     }
-
+    //recherche dans tableua quelle aeropoert correspond au code
     public Aeroport findByCode(String code)
     {
         for (Aeroport aero : list) {
