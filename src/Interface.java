@@ -22,15 +22,15 @@ public class Interface extends Application
         Earth root = new Earth();
         Pane pane = new Pane(root);
         //dimensionement de la sphere
-        Scene theScene = new Scene(pane, 600, 400,true);
+        Scene theScene = new Scene(pane, 600, 400,true);//taille page blanche
         primaryStage.setScene(theScene);
         primaryStage.show();
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-1000);
+        camera.setTranslateZ(-1000);//position cam en Z
         camera.setNearClip(0.1);
         camera.setFarClip(2000.0);
-        camera.setFieldOfView(35);
+        camera.setFieldOfView(35);//ZOOM de la sphere
         theScene.setCamera(camera);
 
         //creationevent pour savoir ou cliquer
@@ -48,14 +48,12 @@ public class Interface extends Application
         });
         theScene.addEventHandler(MouseEvent.ANY, event ->
         {
-            if(event.getButton() == MouseButton.SECONDARY && event.getEventType() == MouseEvent.MOUSE_CLICKED) {
+            if(event.getButton() == MouseButton.SECONDARY && event.getEventType() == MouseEvent.MOUSE_CLICKED)
+            {
                 PickResult pickResult = event.getPickResult();
-                if (pickResult.getIntersectedNode() != null) {
+                if (pickResult.getIntersectedNode() != null)
+                {
                     System.out.println(pickResult.getIntersectedNode());
-                    // Code a completer : on recupere le point d'intersection
-                    // Conversion en longitude et lattitude
-                    // Recherche dans l'objet w de la classe World de l'a´eroport le plus proche.
-                    // Affichage dans la console
                 }
             }
         });

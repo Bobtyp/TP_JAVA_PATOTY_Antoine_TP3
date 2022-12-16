@@ -15,7 +15,8 @@ public class Earth extends Group
     private ArrayList<Sphere> yellowSphere;
     private Rotate ry = new Rotate();
 
-    public Sphere getEarth() {
+    public Sphere getEarth()
+    {
         return sph;
     }
 
@@ -23,11 +24,11 @@ public class Earth extends Group
 
     public Earth() {
         yellowSphere = new ArrayList<Sphere>();
-        sph = new Sphere(300);
+        sph = new Sphere(300);//taille sphere
 
         PhongMaterial skin = new PhongMaterial();
-        skin.setDiffuseMap(new Image("file:./data/earth_lights_4800.png"));
-        skin.setSelfIlluminationMap(new Image("file:./data/earth_lights_4800.png"));
+        skin.setDiffuseMap(new Image("file:./data/minion.jpg"));//appell du fichier utiliser
+        skin.setSelfIlluminationMap(new Image("file:./data/minion.jpg"));//appell du fichier utiliser
         sph.setMaterial(skin);
         this.getChildren().add(sph);
         this.getTransforms().add(ry);
@@ -36,16 +37,12 @@ public class Earth extends Group
         AnimationTimer animationTimer = new AnimationTimer()
         {
             @Override
-            public void handle(long time)
+            public void handle(long l)
             {
-                //System.out.println("Valeur de time : " + time);
-                ry.setAngle( time/(100_000_000_000_000.0 * 15)  );
-                ry.setAxis(new Point3D(0,-1,0));
-                sph.getTransforms().add(ry);
-
+                ry.setAxis(new Point3D(0,1,0));//v2 = angle de vue
+                ry.setAngle(l/50000000);//Vitessede rotation
             }
         };
-        animationTimer.start();
-
+        animationTimer.start();//Execution de la rotation
     }
 }
