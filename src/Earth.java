@@ -22,13 +22,14 @@ public class Earth extends Group
 
     private Sphere sph;
 
-    public Earth() {
+    public Earth()
+    {
         yellowSphere = new ArrayList<Sphere>();
         sph = new Sphere(300);//taille sphere
 
         PhongMaterial skin = new PhongMaterial();
-        skin.setDiffuseMap(new Image("file:./data/minion.jpg"));//appell du fichier utiliser
-        skin.setSelfIlluminationMap(new Image("file:./data/minion.jpg"));//appell du fichier utiliser
+        skin.setDiffuseMap(new Image("file:./data/minion3.gif"));//appell du fichier utiliser
+        skin.setSelfIlluminationMap(new Image("file:./data/minion3.gif"));//appell du fichier utiliser
         sph.setMaterial(skin);
         this.getChildren().add(sph);
         this.getTransforms().add(ry);
@@ -45,4 +46,5 @@ public class Earth extends Group
         };
         animationTimer.start();//Execution de la rotation
     }
+
 }

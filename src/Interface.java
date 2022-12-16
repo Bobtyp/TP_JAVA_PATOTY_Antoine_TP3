@@ -21,7 +21,6 @@ public class Interface extends Application
         primaryStage.setTitle("Hello world");
         Earth root = new Earth();
         Pane pane = new Pane(root);
-        //dimensionement de la sphere
         Scene theScene = new Scene(pane, 600, 400,true);//taille page blanche
         primaryStage.setScene(theScene);
         primaryStage.show();
@@ -35,12 +34,14 @@ public class Interface extends Application
 
         //creationevent pour savoir ou cliquer
         theScene.addEventHandler(MouseEvent.ANY, event -> {
-            if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
+            if (event.getEventType() == MouseEvent.MOUSE_PRESSED)
+            {
                 startDragX = event.getSceneX();
                 startDragY = event.getSceneY();
                 System.out.println("Clicked on : (" + startDragX + ", " + startDragY + ")");
             }
-            if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
+            if (event.getEventType() == MouseEvent.MOUSE_DRAGGED)
+            {
                 double newTZ = camera.getTranslateZ() + (event.getSceneY() - startDragY);
                 if (newTZ > -2000 && newTZ < -500) camera.setTranslateZ(newTZ);
                 startDragY = event.getSceneY();
@@ -48,6 +49,7 @@ public class Interface extends Application
         });
         theScene.addEventHandler(MouseEvent.ANY, event ->
         {
+            //if pour récupérer les coordonnées sur click de la souris
             if(event.getButton() == MouseButton.SECONDARY && event.getEventType() == MouseEvent.MOUSE_CLICKED)
             {
                 PickResult pickResult = event.getPickResult();
