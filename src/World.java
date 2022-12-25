@@ -18,14 +18,14 @@ public class World {
                 String fields[] = s.split(",");
                 // Une bonne idee : placer un point d
                 //arr^et ici pour du debuggage.
-                if (fields[1].equals("large_airport"))
+                if (fields[1].equals("large_airport"))//récupération des éléments du tableau
                 {
-                    String IATA = fields[9];
-                    String Name = fields[2];
-                    String country = fields[5];
+                    String IATA = fields[9];//emplacement pour code IATA
+                    String Name = fields[2];//emplacement pour nom Aéroports
+                    String country = fields[5];//emplacement pour Pays
                     double lat = Double.parseDouble(fields[12]);
                     double lon = Double.parseDouble(fields[11]);
-                    list.add(new Aeroport(IATA, Name, country, lat, lon));
+                    list.add(new Aeroport(IATA, Name, country, lat, lon));//ajout dans le tableau des éléments précedents
                 }
                 s = buf.readLine();
             }

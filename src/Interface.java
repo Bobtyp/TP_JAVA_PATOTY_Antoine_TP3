@@ -34,18 +34,22 @@ public class Interface extends Application
 
         //creationevent pour savoir ou cliquer
         theScene.addEventHandler(MouseEvent.ANY, event -> {
-            if (event.getEventType() == MouseEvent.MOUSE_PRESSED)
+            if (event.getEventType() == MouseEvent.MOUSE_PRESSED)//action suite au click de la souris
             {
-                startDragX = event.getSceneX();
-                startDragY = event.getSceneY();
-                System.out.println("Clicked on : (" + startDragX + ", " + startDragY + ")");
+                startDragX = event.getSceneX();//récupérer l'axe en X
+                startDragY = event.getSceneY();//récupérer l'axe en Y
+                System.out.println("votre souris à cliquer à la position : ( en X = " + startDragX +
+                                    ", en Y =  " + startDragY + ")");//afficher les coordonnée en X et Y
             }
-            if (event.getEventType() == MouseEvent.MOUSE_DRAGGED)
+           /* if (event.getEventType() == MouseEvent.MOUSE_DRAGGED)//actione mener après lachement du click de la souris
             {
                 double newTZ = camera.getTranslateZ() + (event.getSceneY() - startDragY);
-                if (newTZ > -2000 && newTZ < -500) camera.setTranslateZ(newTZ);
+                if (newTZ > -2000 && newTZ < -500)
+                {
+                    camera.setTranslateZ(newTZ);
+                }
                 startDragY = event.getSceneY();
-            }
+            }*/
         });
         theScene.addEventHandler(MouseEvent.ANY, event ->
         {

@@ -28,8 +28,8 @@ public class Earth extends Group
         sph = new Sphere(300);//taille sphere
 
         PhongMaterial skin = new PhongMaterial();
-        skin.setDiffuseMap(new Image("file:./data/minion3.gif"));//appell du fichier utiliser
-        skin.setSelfIlluminationMap(new Image("file:./data/minion3.gif"));//appell du fichier utiliser
+        skin.setDiffuseMap(new Image("file:./data/earth_lights_4800.png"));//appell du fichier utiliser
+        skin.setSelfIlluminationMap(new Image("file:./data/earth_lights_4800.png"));//appell du fichier utiliser
         sph.setMaterial(skin);
         this.getChildren().add(sph);
         this.getTransforms().add(ry);
