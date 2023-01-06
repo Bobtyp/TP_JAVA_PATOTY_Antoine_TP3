@@ -17,11 +17,12 @@ public class Interface extends Application
     @Override
     public void start(Stage primaryStage) throws Exception
     {
+        World w = new World ("Data/airport-codes_no_comma.csv");
         //creation de la sphere
         primaryStage.setTitle("Hello world");
         Earth root = new Earth();
         Pane pane = new Pane(root);
-        Scene theScene = new Scene(pane, 600, 400,true);//taille page blanche
+        Scene theScene = new Scene(pane, 600, 400, false);//taille page blanche
         primaryStage.setScene(theScene);
         primaryStage.show();
 
@@ -39,9 +40,9 @@ public class Interface extends Application
                 startDragX = event.getSceneX();//récupérer l'axe en X
                 startDragY = event.getSceneY();//récupérer l'axe en Y
                 System.out.println("votre souris à cliquer à la position : ( en X = " + startDragX +
-                                    ", en Y =  " + startDragY + ")");//afficher les coordonnée en X et Y
+                        ", en Y =  " + startDragY + ")");//afficher les coordonnée en X et Y
             }
-           /* if (event.getEventType() == MouseEvent.MOUSE_DRAGGED)//actione mener après lachement du click de la souris
+            if (event.getEventType() == MouseEvent.MOUSE_DRAGGED)//actione mener après lachement du click de la souris
             {
                 double newTZ = camera.getTranslateZ() + (event.getSceneY() - startDragY);
                 if (newTZ > -2000 && newTZ < -500)
@@ -49,24 +50,34 @@ public class Interface extends Application
                     camera.setTranslateZ(newTZ);
                 }
                 startDragY = event.getSceneY();
-            }*/
+            }
         });
+        //action demander sur clic droit
         theScene.addEventHandler(MouseEvent.ANY, event ->
         {
-            //if pour récupérer les coordonnées sur click de la souris
-            if(event.getButton() == MouseButton.SECONDARY && event.getEventType() == MouseEvent.MOUSE_CLICKED)
+            if (event.getButton() == MouseButton.SECONDARY && event.getEventType() == MouseEvent.MOUSE_CLICKED)
             {
                 PickResult pickResult = event.getPickResult();
                 if (pickResult.getIntersectedNode() != null)
                 {
-                    System.out.println(pickResult.getIntersectedNode());
+                    //Récupération des coordonnée en X et Y
+                    startDragX = pickResult.getIntersectedTexCoord().getX();//récupérer l'axe en X
+                    startDragY = pickResult.getIntersectedTexCoord().getY();//récupérer l'axe en Y
+
+                    //transforation des données
+                    double longitude=360*(startDragX-0.5);
+                    double latitude=2*Math.toDegrees(Math.atan(Math.exp((0.5-startDragY)/0.2678))-(Math.PI/4));
+
+                    //recherche de l'aeroport le plus proche en fonction de la ou on clic
+                    System.out.println(w.findNearestAirport(longitude,latitude));
                 }
+
             }
         });
     }
     public static void main(String[] args)
     {
-        launch(args);
+       launch(args);
     }
 
 }

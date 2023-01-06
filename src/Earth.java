@@ -2,9 +2,11 @@ import javafx.animation.AnimationTimer;
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -46,5 +48,4 @@ public class Earth extends Group
         };
         animationTimer.start();//Execution de la rotation
     }
-
 }
