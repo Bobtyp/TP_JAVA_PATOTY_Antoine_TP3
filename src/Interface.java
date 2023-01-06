@@ -70,10 +70,14 @@ public class Interface extends Application
 
                     //recherche de l'aeroport le plus proche en fonction de la ou on clic
                     System.out.println(w.findNearestAirport(longitude,latitude));
+
+                    //affichage de la sphere de laéroport
+                    root.displayRedSphere(w.findNearestAirport(longitude,latitude));
                 }
 
             }
         });
+
     }
     public static void main(String[] args)
     {

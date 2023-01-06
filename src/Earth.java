@@ -43,9 +43,49 @@ public class Earth extends Group
             public void handle(long l)
             {
                 ry.setAxis(new Point3D(0,1,0));//v2 = angle de vue
-                ry.setAngle(l/50000000);//Vitessede rotation
+                ry.setAngle(l/60000000);//Vitessede rotation
             }
         };
         animationTimer.start();//Execution de la rotation
+    }
+
+    //création de la nouvelle sphere pour afficher l'aéroport le plus proche
+    public Sphere createSphere(Aeroport a,Color color)
+    {
+        PhongMaterial col = new PhongMaterial();
+        col.setSpecularColor(color);
+        col.setDiffuseColor(color);
+
+        double latitude = Math.toRadians(a.getLatitude()*0.65);
+        double longitude = Math.toRadians(a.getLongitude());
+
+        Sphere coloredSphere = new Sphere(5);//taille de la sphere
+        coloredSphere.setMaterial(col);
+
+        //calcule des coordonnées de la sphere
+        Translate tz= new Translate(
+                300*Math.cos(latitude)*Math.sin(longitude),//calcul en axe x
+                -300*Math.sin(latitude),//calcul en Y
+                -300*Math.cos(latitude)*Math.cos(longitude)//calcul en axe Z
+                 );
+
+        coloredSphere.getTransforms().add(tz);
+        //Rotate(V1,V2,V3,Point3D)
+        //V = angle
+        //V1 = pivot X
+        //V2 = pivot Y
+        //V3 = pivot Z
+        Rotate rTheta = new Rotate (40,0,0,300,Rotate.X_AXIS);
+        Rotate rPhi = new Rotate (73,0,0,300,Rotate.Y_AXIS);
+
+        //coloredSphere.getTransforms().add(rTheta);
+        //coloredSphere.getTransforms().add(rPhi);
+
+        return coloredSphere;
+    }
+    //affichage de la sphere pour indiquer l'aéroport le plus proche
+    public void displayRedSphere(Aeroport a)
+    {
+        this.getChildren().add(createSphere(a,Color.ORANGE));
     }
 }
