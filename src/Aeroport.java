@@ -9,8 +9,8 @@ public class Aeroport
     public Aeroport(String IATA, String name, String country, double latitude, double longitude)
     {
         this.IATA = IATA;
-        Name = name;
-        Country = country;
+        this.Name = name;
+        this.Country = country;
         this.latitude = latitude;
         this.longitude = longitude;
     }

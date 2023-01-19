@@ -10,8 +10,17 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.ArrayList;
+
 public class Interface extends Application
 {
+    //déclaration tableau des vols
+    ArrayList<Flight> listOfFlight = new ArrayList<Flight>();
     double startDragX;
     double startDragY;
     @Override
@@ -19,7 +28,7 @@ public class Interface extends Application
     {
         World w = new World ("Data/airport-codes_no_comma.csv");
         //creation de la sphere
-        primaryStage.setTitle("Hello world");
+        primaryStage.setTitle("Hello world");//nom de la pop up
         Earth root = new Earth();
         Pane pane = new Pane(root);
         Scene theScene = new Scene(pane, 600, 400, false);//taille page blanche
@@ -33,8 +42,9 @@ public class Interface extends Application
         camera.setFieldOfView(35);//ZOOM de la sphere
         theScene.setCamera(camera);
 
-        //creationevent pour savoir ou cliquer
-        theScene.addEventHandler(MouseEvent.ANY, event -> {
+        //action associer à l'évenement d'un clic de souris
+        theScene.addEventHandler(MouseEvent.ANY, event ->
+        {
             if (event.getEventType() == MouseEvent.MOUSE_PRESSED)//action suite au click de la souris
             {
                 startDragX = event.getSceneX();//récupérer l'axe en X
@@ -44,10 +54,11 @@ public class Interface extends Application
             }
             if (event.getEventType() == MouseEvent.MOUSE_DRAGGED)//actione mener après lachement du click de la souris
             {
+                //indication de la translation du zoom selon un axe donnée
                 double newTZ = camera.getTranslateZ() + (event.getSceneY() - startDragY);
                 if (newTZ > -2000 && newTZ < -500)
                 {
-                    camera.setTranslateZ(newTZ);
+                    camera.setTranslateZ(newTZ);//permet de faire le zoom sur la terre sur un axe donné
                 }
                 startDragY = event.getSceneY();
             }
@@ -72,11 +83,37 @@ public class Interface extends Application
                     System.out.println(w.findNearestAirport(longitude,latitude));
 
                     //affichage de la sphere de laéroport
-                    root.displayRedSphere(w.findNearestAirport(longitude,latitude));
-                }
+                    Aeroport aeroport = w.findNearestAirport(longitude,latitude);
+                    root.displayRedSphere(aeroport);
 
+                    try
+                    {
+                        //execution de la requète internet
+                        HttpClient client = HttpClient.newHttpClient();
+
+                        //création de la requète vers le site aviationstack avec une limite de 1 pour éviter de surcharger le PC
+                        HttpRequest request = HttpRequest.newBuilder()
+                                .uri(URI.create("http://api.aviationstack.com/v1/flights?access_key=369bf67204b8823ff563ab599670b59f&arr_iata="
+                                        +aeroport.getIATA()+"&limit=1"))
+                                .build();
+                        HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
+                        JsonFlightFiller json = new JsonFlightFiller(response.body().toString(),w);
+                        listOfFlight = json.getList();
+                        json.displayFlight();
+                        //affichage des point jaune sur la sphere
+                        root.displayYellowSphere(listOfFlight);
+
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
+        primaryStage.setScene(theScene);
+
+        primaryStage.show();
 
     }
     public static void main(String[] args)
