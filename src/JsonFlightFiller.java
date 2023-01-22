@@ -23,6 +23,8 @@ public class JsonFlightFiller
     {
         return list;
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public JsonFlightFiller(String jsonString,World w)
     {
         try
@@ -31,6 +33,7 @@ public class JsonFlightFiller
             JsonReader rdr = Json.createReader(is);
             JsonObject obj = rdr.readObject();
             JsonArray results = obj.getJsonArray("data");
+
             for (JsonObject result : results.getValuesAs(JsonObject.class))
             {
                 try
@@ -59,6 +62,8 @@ public class JsonFlightFiller
 
                     LocalDateTime departTime = null;
 
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //récupération des heures
                     if (heure != null)
                     {
@@ -67,6 +72,7 @@ public class JsonFlightFiller
 
                     heure = result.getJsonObject("arrival").getString("estimated");
                     LocalDateTime arrivalTime = null;
+
                     if (heure != null)
                     {
                         arrivalTime = LocalDateTime.parse(heure, ISO_OFFSET_DATE_TIME);
@@ -74,7 +80,6 @@ public class JsonFlightFiller
 
                     //récupération des éléments issue de la liste de la classe FLIGHT
                     list.add(new Flight(depart, arrival, airlineName, airlineCode, number, departTime, arrivalTime));
-
                 }
                 catch (Exception e)
                 {
@@ -87,10 +92,14 @@ public class JsonFlightFiller
             e.printStackTrace();
         }
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void displayFlight()
     {
         for (Flight f : list) System.out.println(f);
     }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //main issue du sujet de TP
     public static void main (String[] args)
     {
@@ -103,7 +112,7 @@ public class JsonFlightFiller
             BufferedReader br = new BufferedReader(new FileReader("Data/JsonOrly.txt"));
             String test = br.readLine();
             JsonFlightFiller JsonFlightFiller = new JsonFlightFiller(test,w);
-            //System.out.println(JsonFlightFiller.getList().get(0));//affichage de la ligne du fichier .txt
+            System.out.println(JsonFlightFiller.getList().get(0));//affichage de la ligne du fichier .txt
 
         }
         catch (Exception e)

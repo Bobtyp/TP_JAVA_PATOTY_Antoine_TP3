@@ -23,6 +23,8 @@ public class Interface extends Application
     ArrayList<Flight> listOfFlight = new ArrayList<Flight>();
     double startDragX;
     double startDragY;
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void start(Stage primaryStage) throws Exception
     {
@@ -52,6 +54,8 @@ public class Interface extends Application
                 System.out.println("votre souris à cliquer à la position : ( en X = " + startDragX +
                         ", en Y =  " + startDragY + ")");//afficher les coordonnée en X et Y
             }
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             if (event.getEventType() == MouseEvent.MOUSE_DRAGGED)//actione mener après lachement du click de la souris
             {
                 //indication de la translation du zoom selon un axe donnée
@@ -63,6 +67,8 @@ public class Interface extends Application
                 startDragY = event.getSceneY();
             }
         });
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //action demander sur clic droit
         theScene.addEventHandler(MouseEvent.ANY, event ->
         {
@@ -86,6 +92,8 @@ public class Interface extends Application
                     Aeroport aeroport = w.findNearestAirport(longitude,latitude);
                     root.displayRedSphere(aeroport);
 
+                    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     try
                     {
                         //execution de la requète internet
@@ -96,6 +104,7 @@ public class Interface extends Application
                                 .uri(URI.create("http://api.aviationstack.com/v1/flights?access_key=369bf67204b8823ff563ab599670b59f&arr_iata="
                                         +aeroport.getIATA()+"&limit=1"))
                                 .build();
+
                         HttpResponse response = client.send(request, HttpResponse.BodyHandlers.ofString());
                         JsonFlightFiller json = new JsonFlightFiller(response.body().toString(),w);
                         listOfFlight = json.getList();

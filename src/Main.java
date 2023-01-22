@@ -3,7 +3,8 @@ import java.io.FileReader;
 
 public class Main
 {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
 
         System.out.println("Hello world!");
         //Exmple issue de l'énoncer du TP
@@ -16,9 +17,11 @@ public class Main
         System.out.println("Found " + w.getList().size() + " airports.");
         Aeroport paris = w.findNearestAirport(2.316, 48.866);
         Aeroport cdg = w.findByCode("CDG");
+
         double distance = w.calcul_Distance(2.316, 48.866, paris.getLongitude(), paris.getLatitude());
         System.out.println(paris);
         System.out.println(distance);
+
         double distanceCDG = w.calcul_Distance(2.316, 48.866, cdg.getLongitude(), cdg.getLatitude());
         System.out.println(cdg);
         System.out.println(distanceCDG);
